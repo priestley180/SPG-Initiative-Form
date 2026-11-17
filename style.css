@@ -126,3 +126,5 @@ button, .file { border-radius: 3px; }
   nav a:last-child { border-right: 0; }
   main { width: 100%; }
 }
+.outcome-table th[scope="row"] { width: 30%; }
+.outcome-table td textarea { min-width: 0; }
