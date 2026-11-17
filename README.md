@@ -14,6 +14,6 @@ Use **Copy for Confluence** and paste into a Confluence page in edit mode. Rich 
 
 ## Host
 
-Publish `index.html`, `style.css`, and `app.js` together on a static host, such as GitHub Pages. For GitHub Pages, deploy the repository root from the desired branch through Settings → Pages where the repository plan and permissions support it. No hosting deployment has been made by this project. Use HTTPS for formatted clipboard copying. The site has no analytics, external scripts, or server-side answer storage.
+Publish `index.html`, `style.css`, `app.js`, and the `fonts/` directory together on a static host, such as GitHub Pages. For GitHub Pages, deploy the repository root from the desired branch through Settings → Pages where the repository plan and permissions support it. No hosting deployment has been made by this project. Use HTTPS for formatted clipboard copying. The site has no analytics, external scripts, or server-side answer storage. BBC Reith v2.300 web fonts are served locally from `fonts/`, using the archive supplied by the project owner. Arial and Georgia provide fallbacks. Include the `fonts/` directory when deploying. The visual styling follows the supplied BBC Help screenshots: white backgrounds, bold sans headings, thin grey borders, black actions, and right-hand navigation on desktop. The local font files have been verified in the development browser.
 
 Do not commit completed forms or draft backups to the repository. Hosting access control must be configured through the chosen host if the form itself must remain private.
