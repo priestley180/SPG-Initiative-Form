@@ -1,33 +1,32 @@
-# Initiative Opportunity Brief
+# Product development forms
 
-A static HTML version of the initiative template, covering the overview and all four lifecycle stages. 
+Two independent static forms with BBC Help styling and locally hosted Reith fonts.
 
-## Run locally
+| Form | URL path | Files |
+| --- | --- | --- |
+| Initiative Opportunity Brief | `initiative/` | `initiative/index.html`, `app.js`, `style.css`, `print.css`, `fonts/` (all within `initiative/`) |
+| Intake Form | `intake/` | `intake/index.html`, `app.js`, `style.css`, `print.css`, `fonts/` (all within `intake/`) |
 
-From this directory, run `python3 -m http.server 8000 --bind 0.0.0.0` and open the site in a browser. No package installation or backend is required.
+Each folder is self-contained. Edit its files to change only that form. The root `index.html` and `intake.html` redirect old bookmarks to the new locations. Deploy the whole repository root to retain those redirects, or deploy either form folder independently. The initiative page's optional link to Intake assumes both folders are deployed together.
 
-## Complete and export
+## Run
 
-Answers save automatically in local browser storage. Use **Download draft** to keep a JSON backup and **Open draft** to restore it, including on another device. Browser storage can be cleared and is not encrypted; use an appropriate device for internal information.
+From the repository root: `python3 -m http.server 8000 --bind 0.0.0.0`. Open `/initiative/` or `/intake/`. No dependency installation or build is required.
 
-Use **Copy for Confluence** and paste into a Confluence page in edit mode. Rich clipboard copying needs HTTPS or localhost and browser permission. Alternatively, download the completed HTML, open it, and copy its rendered contents into Confluence. Review formatting before publishing; compatibility with the organisation's editor still needs to be verified. This exports page content and does not submit to a Confluence forms plugin or update Confluence automatically.
+## Drafts and exports
 
-## Host
+Answers save locally in separate browser storage keys. Download draft creates a JSON backup; Open draft restores it. Drafts for the other form are rejected. Existing Opportunity Brief drafts remain supported. Browser storage is not encrypted; use an appropriate device for internal information. Do not commit completed forms or backups.
 
-Publish `index.html`, `style.css`, `app.js`, and the `fonts/` directory together on a static host, such as GitHub Pages. For GitHub Pages, deploy the repository root from the desired branch through Settings → Pages where the repository plan and permissions support it. No hosting deployment has been made by this project. Use HTTPS for formatted clipboard copying. The site has no analytics, external scripts, or server-side answer storage. BBC Reith v2.300 web fonts are served locally from `fonts/`, using the archive supplied by the project owner. Arial and Georgia provide fallbacks. Include the `fonts/` directory when deploying. The visual styling follows the supplied BBC Help screenshots: white backgrounds, bold sans headings, thin grey borders, black actions, and right-hand navigation on desktop. The local font files have been verified in the development browser.
+Clear form asks for confirmation before removing answers and the saved browser draft. The forms retain separate drafts on the same hosting origin even after moving into folders.
 
-Do not commit completed forms or draft backups to the repository. Hosting access control must be configured through the chosen host if the form itself must remain private.
+Copy for Confluence copies formatted content to paste into a page in edit mode. HTTPS or localhost and clipboard permission are required. Download completed HTML is an alternative; open it and copy the rendered contents. Review formatting before publishing. This does not update Confluence automatically or submit to a forms plugin.
 
-## Save a PDF
+Save as PDF opens a Confluence-style read-only preview and the browser print dialog. Select Save as PDF, disable browser headers and footers, and choose landscape for wide tables. Allow pop-ups if needed. A Print / Save as PDF button lets you reopen the dialog. The styling approximates Confluence; themes may differ.
 
-Choose **Save as PDF** to open a read-only, Confluence-style preview and the browser print dialog. Select **Save as PDF** as the destination. Disable browser headers/footers for a clean document; choose landscape for tables with many entries. The preview has a Print / Save as PDF button if you cancel or want to print again. Allow pop-ups for this site if the preview is blocked. Answers stay on your device. The PDF approximates Confluence page styling; your Confluence theme may differ.
+## Hosting
 
-Include `print.css` when deploying the site.
+Both folders are static and have no server-side answer storage, analytics or external scripts. Each has its own copy of the Reith v2.300 web fonts supplied by the project owner, with Arial and Georgia fallbacks. Include font folders and print stylesheets when deploying. Configure private hosting access through the host if required.
 
-Use **Clear form** to reset all answers, table entries, and checkpoints, and remove the saved browser draft. A confirmation prompt lets you cancel; download a draft first to keep a copy.
+For GitHub Pages, deploy the repository root from the desired branch. New paths are `/SPG-Initiative-Form/initiative/` and `/SPG-Initiative-Form/intake/`.
 
-## Intake Form
-
-Open `intake.html` (or follow **Open Intake Form** from the brief) for the stakeholder request form. Its seven questions and example guidance follow the supplied Confluence PDF. Both forms use the shared layout, local Reith fonts, independent desktop scrolling, draft download/import, confirmed clear, Confluence copy, completed HTML and PDF preview. Intake drafts use their own browser storage and are identified in downloaded JSON; importing a draft for the other form is rejected. Existing Opportunity Brief drafts remain supported.
-
-Deploy `intake.html` and `intake.js` alongside the existing files. The original PDF's example-form links were not included because their target URLs were not supplied in the export.
+The Intake Form follows the supplied seven-question Confluence PDF. Its example-form links were omitted because their target URLs were not supplied.
