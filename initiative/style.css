@@ -162,4 +162,4 @@ main > header #status { display: inline-block; max-width: none; margin-top: 20px
 @media screen and (min-width: 851px) {
   .masthead-inner { padding-right: calc(6% + 12px); overflow-y: hidden; scrollbar-gutter: stable; }
 }
-.sidebar-actions-title { margin-top: 28px; }
+.sidebar-actions-title { margin-top: 48px; margin-bottom: 32px; }
