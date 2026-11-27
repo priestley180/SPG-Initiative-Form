@@ -32,7 +32,7 @@ document.querySelector('#form').addEventListener('click',e=>{const el=e.target;i
 function completed(){return sections.map((s,i)=>`<h1>${esc(s.title)}</h1>${s.note?`<p>${esc(s.note)}</p>`:''}${s.fieldsAsTable?overviewTable(s,i,false):(s.fields||[]).map(l=>`<h3>${esc(l)}</h3><p>${esc(data[`${i}:${l}`]).replace(/\n/g,'<br>')}</p>`).join('')}${(s.tables||[]).map((table,t)=>entryTable(table,i,t,false)).join('')}${outcomeTable(s,i,false)}${s.afterHeading?`<h3>${esc(s.afterHeading)}</h3>`:''}${s.afterNote?`<p>${esc(s.afterNote)}</p>`:''}${(s.after||[]).map(l=>`<h3>${esc(l)}</h3><p>${esc(data[`${i}:${l}`]).replace(/\n/g,'<br>')}</p>`).join('')}${s.checks?`<h3>Checkpoint: ${esc(s.checkpoint)}</h3><ul>${s.checks.map((c,n)=>`<li>${data[`${i}:check:${n}`]?'☑':'☐'} ${esc(c)}</li>`).join('')}</ul>`:''}`).join('')}
 function download(content,type,name){const url=URL.createObjectURL(new Blob([content],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 document.querySelector('#save').onclick=()=>download(JSON.stringify({version:1,data},null,2),'application/json','initiative-draft.json');
-document.querySelector('#export').onclick=()=>download(`<!doctype html><html lang="en"><meta charset="utf-8"><title>Completed initiative</title><body>${completed()}</body></html>`,'text/html','initiative.html');
+document.querySelector('#export').onclick=()=>download(`<!doctype html><html lang="en"><meta charset="utf-8"><title>Initiative Opportunity Brief</title><body>${completed()}</body></html>`,'text/html','initiative.html');
 document.querySelector('#copy').onclick=async()=>{const html=completed(),div=document.createElement('div');div.innerHTML=html;try{await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([div.innerText||div.textContent],{type:'text/plain'})})]);status.textContent='Copied. Paste into Confluence in edit mode.'}catch{status.textContent='Clipboard unavailable. Open downloaded HTML and copy its contents.'}};
 document.querySelector('#import').onchange=async e=>{try{const parsed=JSON.parse(await e.target.files[0].text());if(parsed.version!==1||!parsed.data||typeof parsed.data!=='object'||Array.isArray(parsed.data))throw Error();for(const [k,v] of Object.entries(parsed.data)){if(k.includes(':table:')){if(!Array.isArray(v)||v.some(r=>!Array.isArray(r)||r.some(c=>typeof c!=='string')))throw Error()}else if(typeof v!=='string'&&typeof v!=='boolean')throw Error()}data=parsed.data;persist();render()}catch{status.textContent='Could not open draft. Choose a downloaded initiative JSON file.'}e.target.value=''};
 render();
@@ -41,7 +41,7 @@ render();
 document.querySelector('#pdf').onclick = () => {
  const preview = window.open('', '_blank');
  if (!preview) { status.textContent = 'Allow pop-ups to open the PDF preview, then try again.'; return; }
- const title = data['0:Initiative title'] || 'Completed initiative';
+ const title = data['0:Initiative title'] || 'Initiative Opportunity Brief';
  preview.document.write(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title></head><body><div class="print-toolbar"><p>Choose <strong>Save as PDF</strong> in the print dialog. For a clean page, turn off browser headers and footers. For many columns, choose landscape.</p><button type="button" id="print-again">Print / Save as PDF</button></div><article><h1 class="page-title">${esc(title)}</h1>${completed().replace(/<h1>/g,'<h2>').replace(/<\/h1>/g,'</h2>')}</article></body></html>`);
  preview.document.close();
  preview.document.querySelector('#print-again').onclick = () => preview.print();
@@ -52,4 +52,18 @@ document.querySelector('#pdf').onclick = () => {
  stylesheet.href = new URL('print.css', document.baseURI).href;
  preview.document.head.append(stylesheet);
  status.textContent = 'PDF preview opened. Choose Save as PDF in the print dialog.';
+};
+
+document.querySelector('#clear').onclick = () => {
+ if (!window.confirm('Clear all answers and checkpoints in this form and its saved browser draft? Download a draft first if you want to keep a copy.')) return;
+ try {
+  localStorage.removeItem(key);
+ } catch {
+  status.textContent = 'Could not clear the saved browser draft. Your answers have been kept. Please try again.';
+  return;
+ }
+ data = {};
+ render();
+ document.querySelector('main').scrollTop = 0;
+ status.textContent = 'Form and saved browser draft cleared.';
 };

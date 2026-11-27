@@ -1,4 +1,4 @@
-# SPG Initiative workspace
+# Initiative Opportunity Brief
 
 A static HTML version of the initiative template, covering the overview and all four lifecycle stages. The personal comment from the source PDF is excluded.
 
@@ -23,3 +23,5 @@ Do not commit completed forms or draft backups to the repository. Hosting access
 Choose **Save as PDF** to open a read-only, Confluence-style preview and the browser print dialog. Select **Save as PDF** as the destination. Disable browser headers/footers for a clean document; choose landscape for tables with many entries. The preview has a Print / Save as PDF button if you cancel or want to print again. Allow pop-ups for this site if the preview is blocked. Answers stay on your device. The PDF approximates Confluence page styling; your Confluence theme may differ.
 
 Include `print.css` when deploying the site.
+
+Use **Clear form** to reset all answers, table entries, and checkpoints, and remove the saved browser draft. A confirmation prompt lets you cancel; download a draft first to keep a copy.
