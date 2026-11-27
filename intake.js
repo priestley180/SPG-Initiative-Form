@@ -19,7 +19,7 @@ window.formConfig = {
   ]
  }],
  hints: {
-  'What evidence do you have that we should solve this problem?': 'Examples: Product data & insight; Competitor analysis; Operational need; User feedback.',
-  'Any other information we should know?': 'Examples: Dependencies; Legal or compliance issue; Commercial agreements; Timelines.'
+  'What evidence do you have that we should solve this problem?': ['Product data & insight', 'Competitor analysis', 'Operational need', 'User feedback'],
+  'Any other information we should know?': ['Dependencies', 'Legal or compliance issue', 'Commercial agreements', 'Timelines']
  }
 };
