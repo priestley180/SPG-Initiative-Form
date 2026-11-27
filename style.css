@@ -143,3 +143,8 @@ button, .file { border-radius: 3px; }
   .layout > aside { position: relative; align-self: stretch; }
   .layout > main:focus-visible, .layout > aside:focus-visible { outline: 2px solid #005fcc; outline-offset: -2px; }
 }
+#clear-dialog { max-width: 500px; width: calc(100% - 32px); border: 1px solid #999; border-radius: 4px; padding: 28px; color: #141618; }
+#clear-dialog::backdrop { background: rgb(0 0 0 / 45%); }
+#clear-dialog h2 { margin-bottom: 16px; }
+.dialog-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.dialog-actions button { flex: 1; width: auto; }

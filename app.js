@@ -54,15 +54,19 @@ document.querySelector('#pdf').onclick = () => {
  status.textContent = 'PDF preview opened. Choose Save as PDF in the print dialog.';
 };
 
-document.querySelector('#clear').onclick = () => {
- if (!window.confirm('Clear all answers and checkpoints in this form and its saved browser draft? Download a draft first if you want to keep a copy.')) return;
+const clearDialog = document.querySelector('#clear-dialog');
+document.querySelector('#clear').onclick = () => clearDialog.showModal();
+document.querySelector('#clear-cancel').onclick = () => clearDialog.close();
+document.querySelector('#clear-confirm').onclick = () => {
  try {
   localStorage.removeItem(key);
  } catch {
+  clearDialog.close();
   status.textContent = 'Could not clear the saved browser draft. Your answers have been kept. Please try again.';
   return;
  }
  data = {};
+ clearDialog.close();
  render();
  document.querySelector('main').scrollTop = 0;
  status.textContent = 'Form and saved browser draft cleared.';
