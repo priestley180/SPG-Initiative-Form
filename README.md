@@ -1,6 +1,6 @@
 # Initiative Opportunity Brief
 
-A static HTML version of the initiative template, covering the overview and all four lifecycle stages. The personal comment from the source PDF is excluded.
+A static HTML version of the initiative template, covering the overview and all four lifecycle stages. T
 
 ## Run locally
 
