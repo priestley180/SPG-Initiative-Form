@@ -25,3 +25,9 @@ Choose **Save as PDF** to open a read-only, Confluence-style preview and the bro
 Include `print.css` when deploying the site.
 
 Use **Clear form** to reset all answers, table entries, and checkpoints, and remove the saved browser draft. A confirmation prompt lets you cancel; download a draft first to keep a copy.
+
+## Intake Form
+
+Open `intake.html` (or follow **Open Intake Form** from the brief) for the stakeholder request form. Its seven questions and example guidance follow the supplied Confluence PDF. Both forms use the shared layout, local Reith fonts, independent desktop scrolling, draft download/import, confirmed clear, Confluence copy, completed HTML and PDF preview. Intake drafts use their own browser storage and are identified in downloaded JSON; importing a draft for the other form is rejected. Existing Opportunity Brief drafts remain supported.
+
+Deploy `intake.html` and `intake.js` alongside the existing files. The original PDF's example-form links were not included because their target URLs were not supplied in the export.
