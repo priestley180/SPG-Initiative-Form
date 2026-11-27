@@ -36,3 +36,20 @@ document.querySelector('#export').onclick=()=>download(`<!doctype html><html lan
 document.querySelector('#copy').onclick=async()=>{const html=completed(),div=document.createElement('div');div.innerHTML=html;try{await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([div.innerText||div.textContent],{type:'text/plain'})})]);status.textContent='Copied. Paste into Confluence in edit mode.'}catch{status.textContent='Clipboard unavailable. Open downloaded HTML and copy its contents.'}};
 document.querySelector('#import').onchange=async e=>{try{const parsed=JSON.parse(await e.target.files[0].text());if(parsed.version!==1||!parsed.data||typeof parsed.data!=='object'||Array.isArray(parsed.data))throw Error();for(const [k,v] of Object.entries(parsed.data)){if(k.includes(':table:')){if(!Array.isArray(v)||v.some(r=>!Array.isArray(r)||r.some(c=>typeof c!=='string')))throw Error()}else if(typeof v!=='string'&&typeof v!=='boolean')throw Error()}data=parsed.data;persist();render()}catch{status.textContent='Could not open draft. Choose a downloaded initiative JSON file.'}e.target.value=''};
 render();
+
+// Print a read-only snapshot of the same content copied into Confluence.
+document.querySelector('#pdf').onclick = () => {
+ const preview = window.open('', '_blank');
+ if (!preview) { status.textContent = 'Allow pop-ups to open the PDF preview, then try again.'; return; }
+ const title = data['0:Initiative title'] || 'Completed initiative';
+ preview.document.write(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title></head><body><div class="print-toolbar"><p>Choose <strong>Save as PDF</strong> in the print dialog. For a clean page, turn off browser headers and footers. For many columns, choose landscape.</p><button type="button" id="print-again">Print / Save as PDF</button></div><article><h1 class="page-title">${esc(title)}</h1>${completed().replace(/<h1>/g,'<h2>').replace(/<\/h1>/g,'</h2>')}</article></body></html>`);
+ preview.document.close();
+ preview.document.querySelector('#print-again').onclick = () => preview.print();
+ const stylesheet = preview.document.createElement('link');
+ stylesheet.rel = 'stylesheet';
+ stylesheet.onload = () => { preview.focus(); preview.print(); };
+ stylesheet.onerror = () => { status.textContent = 'PDF preview styles could not load. Please try again.'; };
+ stylesheet.href = new URL('print.css', document.baseURI).href;
+ preview.document.head.append(stylesheet);
+ status.textContent = 'PDF preview opened. Choose Save as PDF in the print dialog.';
+};
